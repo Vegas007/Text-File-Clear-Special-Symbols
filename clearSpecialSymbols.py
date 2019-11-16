@@ -30,11 +30,14 @@ class ClearSpecialSymbols:
 		file_data = []
 		with open(self.fileName, 'r') as file:
 			for line in file.readlines():
-				file_data.append(filter(lambda x: x in self.fileStringsAllowed, line))
+				if sys.version_info[0] < 3:
+					file_data.append(filter(lambda x: x in self.fileStringsAllowed, line))
+				else:
+					file_data.append(''.join(list(filter(lambda x: x in self.fileStringsAllowed, line))))
 			file.close()
 
 		new_file = open(self.fileNameFixed, 'w')
-		new_file.write("".join(file_data))
+		new_file.write(''.join(file_data))
 		new_file.close()
 
 		print('File: "{}" successfully saved!'.format(self.fileNameFixed))
