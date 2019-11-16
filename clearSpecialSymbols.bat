@@ -1,0 +1,2 @@
+python "clearSpecialSymbols.py" %*
+pause
